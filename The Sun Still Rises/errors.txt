@@ -1,0 +1,13 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/script.rpy", line 352: end of line expected.
+    show m young surprised with dissolve at right
+                                         ^
+
+File "game/script.rpy", line 353: end of line expected.
+    show d young sad with dissolve at left
+                                   ^
+
+Ren'Py Version: Ren'Py 6.99.12.4.2187
