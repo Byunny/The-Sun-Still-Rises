@@ -1,18 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-Exception: Could not find return label (u'F:\\GameDev\\RenPy\\The Sun Still Rises/game/script.rpy', 1511937830, 57).
+  File "game/script.rpy", line 1213, in script
+    if forgave_ioriel == True:
+  File "game/script.rpy", line 1213, in <module>
+    if forgave_ioriel == True:
+NameError: name 'forgave_ioriel' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:/WINDOWS/system32/00start.rpyc", line 107, in script
-  File "C:\Users\Byun\Downloads\renpy-6.99.12.4-sdk\renpy\ast.py", line 1376, in execute
-    next_node(renpy.game.context().lookup_return(pop=True))
-  File "C:\Users\Byun\Downloads\renpy-6.99.12.4-sdk\renpy\execution.py", line 552, in lookup_return
-    raise Exception("Could not find return label {!r}.".format(self.return_stack[-1]))
-Exception: Could not find return label (u'F:\\GameDev\\RenPy\\The Sun Still Rises/game/script.rpy', 1511937830, 57).
+  File "game/script.rpy", line 1213, in script
+    if forgave_ioriel == True:
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\ast.py", line 1729, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\python.py", line 1943, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\python.py", line 1936, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 1213, in <module>
+    if forgave_ioriel == True:
+NameError: name 'forgave_ioriel' is not defined
 
 Windows-8-6.2.9200
-Ren'Py 6.99.12.4.2187
+Ren'Py 7.0.0.196
 The Sun Still Rises 0.2a
+Tue Jul 17 04:24:42 2018

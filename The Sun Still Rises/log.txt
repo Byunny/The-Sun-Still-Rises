@@ -1,36 +1,36 @@
-Sat Jun 23 02:10:10 2018
+Tue Jul 17 04:22:29 2018
 Windows-8-6.2.9200
 Ren'Py 7.0.0.196
  
 
-Bootstrap to the start of init.init took 0.09s
+Bootstrap to the start of init.init took 0.13s
 Early init took 0.01s
-Loader init took 0.03s
-Loading error handling took 0.13s
-Loading script took 1.44s
-Loading save slot metadata. took 0.16s
+Loader init took 0.04s
+Loading error handling took 0.06s
+Loading script took 0.91s
+Loading save slot metadata. took 0.21s
 Loading persistent took 0.00s
 Importing _renpysteam: ImportError('No module named _renpysteam',)
-Running init code took 0.40s
-Loading analysis data took 0.03s
+Running init code took 0.23s
+Loading analysis data took 0.05s
 Analyze and compile ATL took 0.01s
 Index archives took 0.00s
 Backing up script files to 'C:\\Users\\Eric\\AppData\\Roaming/RenPy/backups\\The Sun Still Rises':
-Dump and make backups. took 0.09s
+Dump and make backups. took 0.13s
 Cleaning cache took 0.00s
 Making clean stores took 0.00s
-Initial gc. took 0.02s
+Initial gc. took 0.03s
 DPI scale factor: 1.000000
 Creating interface object took 0.05s
 Cleaning stores took 0.00s
 Init translation took 0.03s
 Build styles took 0.01s
-Load screen analysis took 0.01s
+Load screen analysis took 0.00s
 Analyze screens took 0.02s
 Save screen analysis took 0.08s
-Prepare screens took 0.13s
+Prepare screens took 0.09s
 Save pyanalysis. took 0.00s
-Save bytecode. took 0.09s
+Save bytecode. took 0.11s
 Running _start took 0.00s
 Performance test:
 Interface start took 0.03s
@@ -41,7 +41,7 @@ Windowed mode.
 Screen sizes: virtual=(1280, 720) physical=(1280, 720) drawable=(1280, 720)
 Vendor: 'NVIDIA Corporation'
 Renderer: 'GeForce GTX 750 Ti/PCIe/SSE2'
-Version: '4.6.0 NVIDIA 398.11'
+Version: '4.6.0 NVIDIA 398.36'
 Display Info: <Info({'blit_sw_CC': False, 'refresh_rate': 59, 'bitsize': 32, 'wm': True, 'losses': (0, 0, 0, 8), 'hw': False, 'masks': (16711680L, 65280L, 255L, 0L), 'current_h': 1080, 'current_w': 1920, 'shifts': (16, 8, 0, 0), 'blit_sw_A': False, 'blit_hw': False, 'blit_sw': False, 'bytesize': 4, 'blit_hw_CC': False, 'blit_hw_A': False, 'video_mem': 268435456})>
 Fixed-function is blacklisted.
 Extensions:
@@ -403,11 +403,51 @@ Texture testing:
 - 512px textures work.
 - 1024px textures work.
 - 2048px textures work.
-Total time until interface ready: 5.32999992371s
+Total time until interface ready: 3.12199997902s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
+- Frame drawn at 0.018949 seconds.
 - Frame drawn at 0.019949 seconds.
-- Frame drawn at 0.020949 seconds.
-- Frame drawn at 0.034949 seconds.
-- Frame drawn at 0.051949 seconds.
-- 0.051949 seconds to render 5 frames.
+- Frame drawn at 0.030949 seconds.
+- Frame drawn at 0.046949 seconds.
+- 0.046949 seconds to render 5 frames.
+
+Full traceback:
+  File "game/script.rpy", line 1213, in script
+    if forgave_ioriel == True:
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\ast.py", line 1729, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\python.py", line 1943, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\python.py", line 1936, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 1213, in <module>
+    if forgave_ioriel == True:
+NameError: name 'forgave_ioriel' is not defined
+
+While running game code:
+  File "game/script.rpy", line 1213, in script
+    if forgave_ioriel == True:
+  File "game/script.rpy", line 1213, in <module>
+    if forgave_ioriel == True:
+NameError: name 'forgave_ioriel' is not defined
+
+Full traceback:
+  File "game/script.rpy", line 1213, in script
+    if forgave_ioriel == True:
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\ast.py", line 1729, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\python.py", line 1943, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\Eric\Downloads\renpy-7.0.0-sdk\renpy\python.py", line 1936, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 1213, in <module>
+    if forgave_ioriel == True:
+NameError: name 'forgave_ioriel' is not defined
+
+While running game code:
+  File "game/script.rpy", line 1213, in script
+    if forgave_ioriel == True:
+  File "game/script.rpy", line 1213, in <module>
+    if forgave_ioriel == True:
+NameError: name 'forgave_ioriel' is not defined

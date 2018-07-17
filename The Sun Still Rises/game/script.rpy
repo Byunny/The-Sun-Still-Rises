@@ -455,6 +455,7 @@ label prologue:
     i "Can we not shout? Honestly, you're going to get us in trouble."
 
     show i young sad
+    $ forgave_ioriel = False
 
     menu:
         "Glad you could make it!":
@@ -472,7 +473,6 @@ label prologue:
             jump daya_prologue_wine
 
 label ioriel_prologue_sad:
-    $ forgave_ioriel = False
     menu:
         "It's okay, Ioriel.":
             $ forgave_ioriel = True
@@ -874,10 +874,10 @@ label prologue_talk_menu:
         "Ioriel" if talked_to_ioriel == False:
             $ talked_to_someone = True
             jump prologue_ioriel
-        "Mat (WIP)" if talked_to_mat == False:
+        "Mat" if talked_to_mat == False:
             $ talked_to_someone = True
             jump prologue_mat
-        "Serin (WIP)" if talked_to_serin == False:
+        "Serin" if talked_to_serin == False:
             $ talked_to_someone = True
             jump prologue_serin
         "Done talking" if talked_to_someone == True:
@@ -1218,7 +1218,7 @@ label prologue_ioriel:
 
     else:
         show i young sad
-        i "I wanted to apologize again, by the way. You're my friends, and you're important to me."
+        i "I wanted to apologize about that, by the way. You're my friends, and you're important to me."
         extend " I should make more of an effort to stay in contact with you guys."
         show i young sigh
         i "There's just always so much to do. It feels like whenever one thing gets done, there's something else I'm behind on."
