@@ -407,4 +407,7 @@ Total time until interface ready: 5.32999992371s
 - Target is 5 frames in 0.333333333333 seconds.
 - Frame drawn at 0.000000 seconds.
 - Frame drawn at 0.019949 seconds.
-- Frame drawn at 0.020949 
+- Frame drawn at 0.020949 seconds.
+- Frame drawn at 0.034949 seconds.
+- Frame drawn at 0.051949 seconds.
+- 0.051949 seconds to render 5 frames.

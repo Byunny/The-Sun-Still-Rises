@@ -472,8 +472,10 @@ label prologue:
             jump daya_prologue_wine
 
 label ioriel_prologue_sad:
+    $ forgave_ioriel = False
     menu:
         "It's okay, Ioriel.":
+            $ forgave_ioriel = True
             $ i_friend += 1
             i "-and..."
             show i young surprised
@@ -617,7 +619,7 @@ label prologue_2:
 
     extend " It's Bel's favorite!"
 
-    "Bel, the little emerald serpent coiled in Serin's hair, hisses its approval."
+    "Bel, the little emerald serpent coiled in Serin's hair, hisses his approval."
     extend " He seems to be giving An'diel permission to have some juice."
 
     show a young happy
@@ -651,6 +653,10 @@ label prologue_warrior:
     show i young neutral
 
     s "Ooh, I think I heard about that! You're making a real name for yourself!"
+
+    "Serin's eyes twinkle brightly, excitement plain on her face."
+
+    s "Do you think you could fight an orc? I bet you could fight an orc, [pcname]!"
 
     i "Swordsmanship, huh? Do you think you'll be a Guardian one day?"
 
@@ -726,6 +732,7 @@ label prologue_mage:
 
     i "How are your studies going though, [pcname]?"
 
+    $ mage_difficult = False
     menu:
         "Excellent! I'm learning a lot.":
             $ i_friend += 1
@@ -744,6 +751,7 @@ label prologue_mage:
             hide a
             with dissolve
         "Uh, they're... ok.":
+            $ mage_difficult = True
             $ a_friend += 1
             show i young sad
             i "Hmm, that doesn't sound good."
@@ -860,10 +868,10 @@ label prologue_talk_menu:
         "An'diel" if talked_to_andiel == False:
             $ talked_to_someone = True
             jump prologue_andiel
-        "Daya (WIP)" if talked_to_daya == False:
+        "Daya" if talked_to_daya == False:
             $ talked_to_someone = True
             jump prologue_daya
-        "Ioriel (WIP)" if talked_to_ioriel == False:
+        "Ioriel" if talked_to_ioriel == False:
             $ talked_to_someone = True
             jump prologue_ioriel
         "Mat (WIP)" if talked_to_mat == False:
@@ -953,6 +961,7 @@ label prologue_andiel:
         show a young neutral
         a "Dueling though, huh?"
         extend " That's pretty cool! I'm no good at swordfighting, but I'd like to see you compete sometime."
+        a "Do you ever see Serin around? I know she's "
         show a young sad
         a "If I ever get a free moment. Magistrix Erona keeps us to the grindstone!"
         extend " It's always 'there is much for you to do!' every single day."
@@ -1037,8 +1046,10 @@ label prologue_andiel:
     hide a with dissolve
     "An'diel bounces back to the rest of the group, where - true to his word - someone has produced several pastries."
 
-
-    "The night sky twinkles overhead. You think there's still time to speak with someone else."
+    if talked_to_andiel == False or talked_to_daya == False or talked_to_ioriel == False or talked_to_mat == False or talked_to_serin == False:
+        "The night sky twinkles overhead. You think there's still time to speak with someone else."
+    else:
+        "The sun's almost risen. It's probably time to get going."
 
     jump prologue_talk_menu
 
@@ -1106,7 +1117,7 @@ label prologue_daya:
                 show d young happy
                 d "Me, I'd immediately abuse my authority as grand magister to outlaw plaid or something."
                 extend " Plaid robes are definitely the most important problem plaguing Silvermoon today."
-                d "Think you'd do a good job all the same. People who want to be in charge shouldn't always be."
+                d "I think you'd do a good job all the same. People who want to be in charge shouldn't always be."
             "I'm hoping to, yeah.":
                 show d young surprised
                 d "Whoa, you're really planning to, huh?"
@@ -1114,7 +1125,7 @@ label prologue_daya:
                 show d young happy
                 d "I mean, I'd immediately abuse my authority as grand magister to outlaw plaid or something."
                 extend " Plaid robes are definitely the most important problem plaguing Silvermoon today."
-                d "Think you'd do a good job. But you will have to compete with Ioriel!"
+                d "Think you'd do a good job. But you'll have to compete with Ioriel!"
             "Yes... they shall face my power. Power overwhelming!":
                 "Daya breaks into laughter, covering her face to avoid spitting out a mouthful of wine."
                 extend " She coughs, grabbing your shoulder as she tries to breathe."
@@ -1125,29 +1136,404 @@ label prologue_daya:
         show d young sad
         "As you speak, the girl hesitates, for a moment uncharacteristically awkward."
         extend " She takes a swig from her drink to fill the silence before meeting your eyes."
-        d "Can I tell you something, though?"
-        d "I wish I was taking classes with you guys."
-        extend " The private tutor's fine, but... I don't know, I'd see you guys more. Get off the estate."
-
-        show d young neutral
-        "Daya shakes her head, her normal easy smile returning."
-        d "Never mind, forget I said anything."
 
     if history == "warrior":
         show d young neutral
-        ""
+        d "But anyway, you sure shut up Loranar in the duelist's ring, huh?"
+        extend " He sure had a big mouth for someone who dropped his sword the instant you lunged!"
+        show d young sad
+        d "Sorry I couldn't make it to your match. Dad..."
+        extend " doesn't believe swordsmanship is a hobby for a 'lady of good breeding'."
+        menu:
+            "The real fights are after hours anyway.":
+                show d young happy
+                d "[pcname]! Are you telling me you're part of an underground fight club?"
+                d "Wicked cool. Light, how do I show up to that party? Get me an invite, will you?"
+                show d young neutral
+                d "You're really living your life, huh? That's really cool, [pcname]."
+                extend "I'll be right there behind you, alright? Ten thousand years from now, we'll see who's the bigger badass!"
+            "We all have responsibilities.":
+                show d young sad
+                d "Ugh, you're sounding like Ioriel. Or Mat! Responsibilities this, responsibilities that."
+                d "Lugging twelve pounds of lace around some puffed up noble's house isn't responsibility."
+                extend "I swear, some nobles think they're actually better than everyone just because their parents had money."
+                d "Ioriel's a thousand times the person any of them are. Girl never takes a break, jeez."
+                "Daya sighs, brows furrowed in frustration."
+                d "Sorry, I've just had my dad on my case lately."
+                show d young wink
+                d "You watch out though, [pcname]! I've been training, and I'll be seeing you in the ring eventually!"
+        show d young sad
+        "The girl's grin falters as Daya hesitates, for a moment uncharacteristically awkward."
+        extend " She takes a swig from her drink to fill the silence before meeting your eyes."
+
+    d "Can I tell you something, though?"
+    d "I feel bad about being unhappy."
+    extend " I mean, for real, my family's rich. Dad's influential, or whatever that means."
+    extend " We have chefs preparing stuff like... like saffron lobster and caviar at the family dinners I skip."
+    d "My life is so... privileged. All I gotta do is look pretty and pretend to care. Easy!"
+    extend " Ioriel is working night and day to get what I could just ask dad for!"
+    extend " But Light, if I don't hate every second of it. I just want to get out."
+    show d young neutral
+    d "Sorry, [pcname]. I'm, er, drunk. Don't mind me!"
+    menu:
+        "You're right, you should be content.":
+            show d young sad
+            d "I... yeah, you might be right. Lots of people are worse off."
+            extend " Forget I said anything, okay? I'll take your advice."
+            extend " Thanks, [pcname]."
+        "You should do what makes you happy.":
+            show d young surprised
+            d "I... don't know what that is. You don't think I'm being stupid and whiny?"
+            extend " Maybe you're right. I guess no one should feel obligated to be happy."
+            extend " Thanks, [pcname]."
+
+    d "You're too easy to talk to, yikes! I bet people just spill their secrets to you."
+
+    d "Anyway, my cup runneth dry. I'll catch you later."
+
+    hide d with dissolve
+    "Daya takes off, giving you a cheerful wave."
+
+    if talked_to_andiel == False or talked_to_daya == False or talked_to_ioriel == False or talked_to_mat == False or talked_to_serin == False:
+        "The night sky twinkles overhead. You think there's still time to speak with someone else."
+    else:
+        "The sun's almost risen. It's probably time to get going."
+
+    jump prologue_talk_menu
 
 label prologue_ioriel:
+    show i young neutral with dissolve
+    $ talked_to_ioriel = True
+
+    "Ioriel looks a little anxious, keeping an eye on everyone as usual, but she smiles warmly as you approach."
+
+    i "Hello [pcname]. Thank you for organizing all of this, by the way!"
+    extend " We always mean to meet up, but it doesn't happen as often as we'd like."
+
+    if forgave_ioriel == True:
+        show i young happy
+        i "Thanks for being understanding, by the way. I really do want to spend time with you guys, but..."
+        show i young sigh
+        i "There's just always so much to do. It feels like whenever one thing gets done, there's something else I'm behind on."
+
+    else:
+        show i young sad
+        i "I wanted to apologize again, by the way. You're my friends, and you're important to me."
+        extend " I should make more of an effort to stay in contact with you guys."
+        show i young sigh
+        i "There's just always so much to do. It feels like whenever one thing gets done, there's something else I'm behind on."
+
+    menu:
+        "I'm sorry, Ioriel.":
+            show i young neutral
+            "Ioriel shakes her head, smiling at you."
+            i "Nothing to be sorry about! I don't have to volunteer to take on extra work."
+        "You bring it on yourself, you know.":
+            show i young neutral
+            "Ioriel nods, a serious look in her eye."
+            i "I know. I'm the one who chose to take on the extracurricular work."
+
+    show i young sad
+    i "But... I do have to. There's only so many spaces in the Magisterium."
+    extend " Some of the older Magisters have been in power for over a millennium!"
+    i "There are a lot of mages from prestigious bloodlines vying for position."
+    extend " If I'm going to apprentice with the Magisterium, I need to stand out. I don't have a name to fall back on..."
+    show i young surprised
+    i "Oh! I'm wallowing again. I'm sorry, [pcname]! I don't mean to bring down the mood!"
+
+    show i young neutral
+    i "You're all working so hard. Serin's practically a shoe-in for the Farstriders, Mat's pretty much already the patriarch of his house..."
+    if history == "warrior":
+        i "And I have it on good authority that you're one of the most talented warriors to lift a twinblade in centuries, hm?"
+    if history == "mage":
+        if mage_difficult = True:
+            i "And you were being humble, [pcname]. Some of the spells you've designed are incredible, even if it doesn't reflect in marks."
+            i "There are more important things than academic grades."
+            "Ioriel blinks, covering her mouth with one hand."
+            i "Don't tell Daya I said that. She'll never let me forget it!"
+        if mage_difficult = False:
+            i "And I've heard Magistrix Erona talking about you. You're one of the best students Quel'thalas has to offer."
+    if history == "noble":
+        i "And I've heard Magistrix Erona talking about you. You've been making quite a stir at court!"
+
+    show i young happy
+    i "I've got to keep up with everyone!"
+
+    menu:
+        "I think people are trying to keep up with you!":
+            show i young surprised
+            i "Oh!"
+            i "I wouldn't say so. I'm just barely scraping by."
+        "We're all doing great.":
+            show i young happy
+            i "Definitely!"
+
+    show i young neutral
+    "Ioriel glances over at your friends, biting her lip as Serin attempts to teach a wobbly Daya how to tumble while Mat frets."
+
+    show i young sigh
+    i "I don't... know if it's going to be enough, though."
+    extend " I'm so tired all the time, some of my work's been slipping. Magistrix Erona has noticed."
+    show i young sad
+    i "The others... they think I'm doing so well. The smart girl, always getting top marks. A little insufferable."
+    extend " I feel like I'm going to let them down. Some of the other students can already open portals from Silvermoon to Lordaeron!"
+    i "If I don't get to apprentice in the Magisterium..."
+    extend " mother and father have already put so much into my studies and they really can't afford it."
+
+    show i young sigh
+    i "Sorry! Sorry, I'm venting. You should go spend time with the others, I just need a moment to compose myself."
+
+    menu:
+        "It's okay to feel unsure.":
+            show i young sad
+            "Ioriel glances at you, biting her lip."
+            i "Is it? I just want to do something worthwhile. There's so much we still need to do to make Silvermoon better. For everyone."
+            i "I don't know if I can do it, sometimes."
+        "You're going to succeed. I know it.":
+            show i young sad
+            "Ioriel glances at you, biting her lip."
+            i "I hope you're right, [pcname]."
+            extend " There's so much that needs to be done to make Silvermoon a better place. For everyone."
+            i "I hope I can do it."
+        "I'm here for you, Ioriel.":
+            show i young surprised
+            i "I..."
+            "Ioriel turns her head away, rubbing her eyes. She coughs, glancing back at you."
+            show i young neutral
+            i "Thank you, [pcname]. I think that might have been what I really needed to hear."
+            i "I want to make Silvermoon better. I hope... I think I can."
+
+    show i young neutral
+    i "Thanks for hearing me out, even though I'm being no fun."
+    i "You're a good friend, [pcname]. I hope we get more chances to see each other from now on!"
+    i "Now, I should probably go make sure Daya doesn't hurt herself!"
+
+    hide i with dissolve
+    "Ioriel gives you a genuine smile before heading back to the group."
+
+    if talked_to_andiel == False or talked_to_daya == False or talked_to_ioriel == False or talked_to_mat == False or talked_to_serin == False:
+        "The night sky twinkles overhead. You think there's still time to speak with someone else."
+    else:
+        "The sun's almost risen. It's probably time to get going."
+
+    jump prologue_talk_menu
 
 label prologue_mat:
+    show m young neutral with dissolve
+    $ talked_to_mat = True
+
+    "Mat frets over your friends' shenanigans as he often does. The oldest of a half dozen children, he's always the big brother."
+    "As you approach, the boy smiles warmly at you."
+
+    m "Oh hey, [pcname]! Good to get a moment to chat."
+    show m young happy
+    m "It's really nice, getting everyone back together again. It's been too long."
+    show m young neutral
+    m "But what about you, [pcname]?"
+
+    if history == "warrior":
+        extend " I know you're working hard on your swordsmanship, but how has life been otherwise?"
+    if history == "mage":
+        if mage_difficult = True:
+            extend " I know school's been a pain, but how has life been otherwise?"
+        if mage_difficult = False:
+            extend " I know you've been doing really well in class, but how has life been otherwise?"
+    if history == "noble":
+        extend " I know you've been busy learning how the kingdom works, but how has life been otherwise?"
+
+    menu:
+        "I've been great!":
+            show m young happy
+            m "I'm glad to hear it! Life's been a little up in the air for a lot of us, so I'm happy you're faring well."
+            show m young neutral
+            m "You're usually pretty stoic, huh? I admire that. It seems like you've always got your feet under you."
+        "It's been rough, sometimes.":
+            show m young sad
+            m "I'm sorry, [pcname]. I've got your back, okay? Let me know if there's ever anything I can do to help out."
+            show m young neutral
+            m "We're friends! That means we look out for one another. Don't hesitate to let me know, okay?"
+        "I want to hear how you've been!":
+            show m young neutral
+            m "Oh no, [pcname], you're always taking care of other people. I gotta check in on you, you hear?"
+            m "Things have been a little up in the air. Have to keep in mind we've got friends to support us!"
+            m "I'm doing well, though. Thanks for asking."
+
+    menu:
+        "You worry too much, Mat.":
+            m "Haha, sorry about that! I don't mean to pry or anything."
+        "Thanks, Mat.":
+            show m young happy
+            m "Of course!"
+
+    show m young neutral
+    m "I just want to make sure my friends are doing okay, you know? I worry about you guys, sometimes."
+
+    menu:
+        "About An'diel?":
+            show m young sad
+            m "Yeah, sometimes. He really works hard, but..."
+            extend " he's always comparing himself to Ioriel, and I don't think that's good for him."
+            show m young neutral
+            m "He's talented and hardworking and creative. He's got a lot to be proud of."
+            show m young sad
+            m "The Magistrix... all of those Magisters, they seem more inclined to be cruel than supportive."
+            extend " There's no way that's the best way to teach!"
+        "About Daya?":
+            show m young sad
+            m "Yeah, sometimes. She's always smiling and making fun, but..."
+            extend " her family wears her down. They expect her to be someone she's not."
+            m "They've even got her feeling guilty for it! I really hope she'll be okay."
+        "About Ioriel?":
+            show m young sad
+            m "Yeah, sometimes. She seems like the model student, but..."
+            extend " she's too hard on herself. Everyone expects her to be perfect, most of all herself."
+            m "It's a lot of pressure, I think. That's a lot of stress for anyone, even someone as smart as Ioriel."
+        "About Serin?":
+            show m young sad
+            m "Yeah, sometimes. Serin's brave and skilled, but I wish she'd be a little more careful sometimes."
+            extend " I'm worried she's going to get hurt trying to save the world or something."
+        "About me?":
+            show m young sad
+            m "Yeah, sometimes. For what it's worth, everyone looks up to you, you know?"
+            extend " People trust you. Our friends trust you. But I don't want you to feel... I don't know, too responsible for everyone?"
+            m "That's probably hypocritical to say. But I mean it! Make sure to make time for yourself, ok?"
+
+    show m young surprised
+    m "But ah! I'm becoming a gossip. You all already think I'm stodgy, I can't act like this!"
+
+    show m young neutral
+    m "But I do think we're all going to be okay in the end."
+    show m young happy
+    m "I believe in us!"
+
+    show m young neutral
+    m "Anyway, those look like mana doughnuts! I haven't had one in ages."
+    m "One of my little sisters - Reya, you remember? - wanted to try this new diet plan with someone and it's terrible!"
+    show m young surprise
+    m "Forgive me, Reya, but I think I'm being led astray!"
+
+    hide m with dissolve
+    "Mat gives you a warm hug before heading over to pick up a pastry."
+
+    if talked_to_andiel == False or talked_to_daya == False or talked_to_ioriel == False or talked_to_mat == False or talked_to_serin == False:
+        "The night sky twinkles overhead. You think there's still time to speak with someone else."
+    else:
+        "The sun's almost risen. It's probably time to get going."
+
+    jump prologue_talk_menu
 
 label prologue_serin:
-    "WIP"
-    "WIP"
-    "WIP"
+    show s young neutral with dissolve
+    $ talked_to_serin = True
+
+    "Serin laughs brightly, nimble on her feet despite the port wine."
+    extend " She beams at you as you approach."
+
+    s "Hey hey, [pcname]!"
+
+    if history == "warrior":
+        "The girl pulls a baguette from a picnic basket, leveling it at you."
+        s "Aha! The mighty Troll King, mightiest of warriors! Lift your weapon and face me!"
+    if history == "mage":
+        "The girl pulls a baguette from a picnic basket, leveling it at you."
+        s "Aha! A sinister necromancer! Muster your sorcery and face me!"
+    if history == "noble":
+        "The girl pulls a baguette from a picnic basket, leveling it at you."
+        s "Aha! The most cunning advisor of Queen Azshara herself! Your silver tongue shall not save you now!"
+
+    menu:
+        "You underestimate my power!":
+            show s young happy
+            "Serin giggles, swapping the blade of bread to her other hand and bopping your shoulder."
+            s "But I am not right-handed! Prepare to die!"
+        "I surrender!":
+            show s young happy
+            "Serin giggles, poking you with the baguette."
+            s "Very well. I'll let you go this time, villain!"
+        "You're being silly, Serin.":
+            show s young happy
+            "Serin giggles, tossing a grape at you."
+            s "You're no fun, [pcname]. C'mon!"
+
+    show s young neutral
+    "The ranger-in-training takes a seat, ripping a chunk off of her baguette. She offers you the bread, still smiling."
+
+    s "It's good to be back in Silvermoon. Being out in Eversong is fun, but patrolling so often, I've really missed you guys! And Bel has missed you too."
+    "The little snake hisses his assent."
+
+    menu:
+        "Doing well with the Farstriders?":
+            s "Absolutely! It's tough keeping up sometimes, but they're really cool."
+            extend " I want to be like them. Fast, strong, clever... protecting Silvermoon like a real hero, you know?"
+            show s young surprised
+            s "Also I got to meet the Ranger-General! She's really cool, and so beautiful... and a little bit scary. But she is a legend, after all."
+        "Missed you too!":
+            s "Aww!"
+            extend " Maybe you could come join me? I don't know the other trainees that well, and it would be nice to have a friend along."
+            s "We could defend Silvermoon together! [pcname] [pcsurname] and Serin Quickstep, protectors of Quel'thalas!"
+        "I did miss Bel a lot.":
+            "Serin grins, even as the little serpent bobs his head proudly."
+            s "You're the worst, [pcname]. You know the silly little snake has no head for flattery."
+
+    show s young happy
+    s "But you've been keeping busy too!"
+
+    if history == "warrior":
+        extend " A duelist swifter than Maiev Shadowsong! The hero of the War of the Ancients!"
+    if history == "mage":
+        extend " A sorcerer as impressive as Dath'remar Sunstrider! Like the first High King of Quel'thalas!"
+    if history == "noble":
+        extend " An orator more charming and hypnotic than Queen Azshara herself! Ruler of the Highborne!"
+
+    show s young neutral
+    s "Or at least, that's what the stories say."
+    "Serin looks thoughtful for a moment, gazing up at the stars."
+
+    s "Do you think there will be legends about you someday?"
+
+    menu:
+        "Definitely.":
+            show s young happy
+            s "That's the spirit!"
+            show s young neutral
+            s "I think you're right, [pcname]. I definitely think you can do something legendary."
+            s "I hope I can too!"
+        "I hope not.":
+            show s young surprised
+            s "Wow, really?"
+            show s young neutral
+            s "Don't be so humble, [pcname]! You could definitely do something legendary."
+
+    s "Seems like a waste if we go our whole lives without doing anything worth telling stories about, right?"
+    s "Even if it's only us telling the stories. I'd like to make a mark on the world at least a few times in the next few centuries."
+
+    s "I think we all will, though. You, An'diel, Daya, Mat, Ioriel - especially Ioriel - we're all doing cool things."
+    s "Promise you'll do lots of cool things so I can brag about knowing you, ok?"
+
+    "Serin smiles at you before rising to her feet."
+
+    s "Anyway, I did say I was going to teach An'diel how to do a backflip. It's going to be great!"
+    s "We've got to hang out more often, alright? Catch you in a sec!"
+
+    "And with that, she's off. Somehow, you get the feeling this backflip thing will go terribly wrong, but..."
+    "It'll probably be fine."
+
+    if talked_to_andiel == False or talked_to_daya == False or talked_to_ioriel == False or talked_to_mat == False or talked_to_serin == False:
+        "The night sky twinkles overhead. You think there's still time to speak with someone else."
+    else:
+        "The sun's almost risen. It's probably time to get going."
+
+    jump prologue_talk_menu
 
 label prologue_conclusion:
-    "WIP"
+    "The sun peeks over the horizon, painting Silvermoon crimson and gold. The six of you fall silent, staring off at the sunrise."
+
+    scene black
+    with dissolve
+
+    "As the sun rises over that rooftop, surrounded by your closest friends, it really does seem like everything is going to be alright."
+
+    jump chapter_one
 
 # This ends the game.
 
